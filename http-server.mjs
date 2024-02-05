@@ -1,12 +1,11 @@
 import http, { request } from 'http';
-import { Request } from 'undici-types';
 
-const server = http.createServer((request, response) =
+const server = http.createServer((request, response) => {
 console.info(request.url);
 console.info(request.method);
 
 if (request.method === 'POST') {
-    Request.addListener('data', (data) => {
+    request.addListener('data', (data) => {
         response.setHeader('Content-Type', 'application/json');
         response.write(data);
         response.end();
@@ -18,4 +17,8 @@ if (request.method === 'POST') {
         response.write('Goodbye world!');
     }
     response.end('ok');
-});
+    }
+})
+
+server.listen(8400);
+
